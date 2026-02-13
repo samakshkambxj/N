@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Naina ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(-45deg,#ff9a9e,#fad0c4,#ffdde1,#ffc3a0);
+    background-size: 400% 400%;
+    animation: bg 12s ease infinite;
+    overflow: hidden;
+}
+
+@keyframes bg {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.card {
+    background: rgba(255,255,255,0.8);
+    backdrop-filter: blur(20px);
+    padding: 35px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 460px;
+    text-align: center;
+    color: #7a1f3d;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+    animation: fadeIn 0.8s ease forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h2 { margin-bottom: 10px; }
+
+input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 25px;
+    border: 1px solid #ff4e75;
+    text-align: center;
+    margin-top: 15px;
+    font-size: 15px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 25px;
+    border: none;
+    margin-top: 15px;
+    background: #ff4e75;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.05);
+    background: #e84365;
+}
+
+.hidden { display: none; }
+
+#message {
+    margin-top: 20px;
+    line-height: 1.7;
+    min-height: 140px;
+    font-size: 15px;
+}
+
+#daysCounter {
+    margin-top: 15px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.loveBarContainer {
+    margin-top: 15px;
+    height: 20px;
+    width: 100%;
+    background: #ffe6ec;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.loveBar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(to right, #ff4e75, #ff8fab);
+    transition: width 0.2s ease;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    50% { transform: translateX(8px); }
+    75% { transform: translateX(-8px); }
+    100% { transform: translateX(0); }
+}
+
+#errorScreen {
+    position: fixed;
+    inset: 0;
+    background: black;
+    color: red;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 18px;
+}
+
+.heart {
+    position: fixed;
+    bottom: -20px;
+    font-size: 18px;
+    animation: float 6s linear infinite;
+}
+
+@keyframes float {
+    to { transform: translateY(-110vh); opacity: 0; }
+}
+</style>
+</head>
+<body>
+
+<div id="passwordCard" class="card">
+    <h2>🔐 Private Love Portal</h2>
+    <p>Only the love of my life knows the password</p>
+    <input type="password" id="passwordInput" placeholder="Enter Password">
+    <button onclick="checkPassword()">Unlock ❤️</button>
+</div>
+
+<div id="mainCard" class="card hidden">
+    <h2>Happy Valentine’s Day, Naina 🌹</h2>
+    <div id="message"></div>
+
+    <div id="daysCounter"></div>
+
+    <button onclick="startLoveMeter()">💗 Measure My Love</button>
+
+    <div class="loveBarContainer">
+        <div id="loveBar" class="loveBar"></div>
+    </div>
+</div>
+
+<div id="errorScreen">
+    <div>
+        SYSTEM FAILURE ⚠️<br><br>
+        ACCESS DENIED ❌<br><br>
+        Not the love of my life.
+    </div>
+</div>
+
+<script>
+
+const correctPassword = "chuchu";
+
+/* CHANGE THIS DATE */
+const startDate = new Date("2025-07-10");
+
+/* Floating hearts */
+setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+}, 700);
+
+function checkPassword() {
+    const input = document.getElementById("passwordInput").value;
+
+    if (input === correctPassword) {
+        document.getElementById("passwordCard").classList.add("hidden");
+        document.getElementById("mainCard").classList.remove("hidden");
+        startTyping();
+        calculateDays();
+    } else {
+        document.body.style.animation = "shake 0.4s";
+        setTimeout(() => document.body.style.animation = "", 400);
+        showError();
+    }
+}
+
+function showError() {
+    const error = document.getElementById("errorScreen");
+    error.style.display = "flex";
+    setTimeout(() => { error.style.display = "none"; }, 2500);
+}
+
+function typeWriter(text, element, speed = 30) {
+    element.innerHTML = "";
+    let i = 0;
+    function typing() {
+        if (i < text.length) {
+            element.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(typing, speed);
+        }
+    }
+    typing();
+}
+
+function startTyping() {
+    const text = "It’s been 7 beautiful months with you, Naina, and every single day still feels special. From the moment you came into my life, everything became brighter and softer. Your smile has this quiet magic — it calms me, comforts me, and makes everything feel right. Being with you isn’t just love… it’s peace, warmth, and home. I love you more than words could ever explain. 💖";
+
+    typeWriter(text, document.getElementById("message"));
+}
+
+function calculateDays() {
+    const today = new Date();
+    const diffTime = today - startDate;
+    const days = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    document.getElementById("daysCounter").innerText =
+        "We’ve been together for " + days + " days 💖";
+}
+
+function startLoveMeter() {
+    const bar = document.getElementById("loveBar");
+    let width = 0;
+
+    const interval = setInterval(() => {
+        if (width >= 1000) {
+            clearInterval(interval);
+            alert("ERROR: Love exceeds measurable limits 💖");
+        } else {
+            width += 20;
+            bar.style.width = width + "%";
+        }
+    }, 50);
+}
+
+</script>
+</body>
+</html>
